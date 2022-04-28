@@ -1,0 +1,76 @@
+\documentclass[20pt,a1paper,landscape]{tikzposter}
+
+% required packages
+\usepackage{amsmath}
+
+%% Available themes: see also
+%% https://bitbucket.org/surmann/tikzposter/downloads/themes.pdf
+\usetheme{Default}
+\colorlet{backgroundcolor}{white}
+
+% title information
+\title{Identifying Direct Causal Effects Under Unmeasured Confounding}
+\author{Philippe Boileau$^{\ast 1}$, Nima S. Hejazi$^{\ast 2}$,
+  Ivana Malenica$^{\ast 1}$, Sandrine Dudoit$^1$, Mark J. van der Laan$^1$}
+\institute{$^1$University of California, Berkeley; $^2$Weill Cornell Medicine}
+%\titlegraphic{}
+
+% dictate default block options
+\newcommand{\myblock}[2]{\block[titleinnersep=5mm, linewidth=1mm]{#1}{#2}}
+
+\begin{document}
+
+\maketitle[width = 26in]
+\node[anchor=west] at (TP@title.west) {\includegraphics[width=5cm]{logos/cal}};
+\node[anchor=east] at (TP@title.east) {\includegraphics[width=5cm]{logos/cal}};
+
+
+\begin{columns}
+
+  \column{0.333}
+
+  \myblock{Introduction}{
+    This is the background.
+  }
+
+  \myblock{Statistical Problem}{
+    State the causal and statistical models, and estimand.
+  }
+
+  \column{0.334}
+
+  \myblock{Identification}{
+    Present the assumptions and theorem.
+  }
+
+  \myblock{Inference}{
+    Statistical inference is possible using standard methods.
+  }
+
+  \column{0.333}
+
+  \myblock{Simulation Results}{
+    Here are the results of our simulation study.
+  }
+
+  \myblock{Conclusions}{
+    Here are the important takeaways.
+  }
+
+  \begin{subcolumns}
+
+    \subcolumn{0.5}
+    \myblock{References}{List of references.}
+
+    \subcolumn{0.5}
+    \myblock{Funding}{Thank you for paying my bills.}
+
+    \block[linewidth=0mm, bodyinnersep=5mm, roundedcorners=12]{}{
+      {\small \textit{$^\ast$ indicates shared first-authorship}}
+    }
+
+  \end{subcolumns}
+
+\end{columns}
+
+\end{document}
