@@ -118,11 +118,9 @@
     \innerblock[]{Theorem}{
       Under these assumptions, the corresponding statistical estimand is
       \begin{align*}
-        \Psi(P) &= \int_w \int_z \{\overline{Q}_Y(w,A=1,z) -
-        \overline{Q}_Y(w,A=0,z)\} \\
-                & \qquad\qquad\qquad p_Z(z \mid A=0,w)~dz~p_W(w)~dw\\
-                &= \E_P\E_P \{\E_P(Y \mid W,A=1,Z) \\
-                &\qquad\qquad\qquad - \E_P(Y \mid W,A=0,Z) \mid A=0,W\} \ .
+        \Psi(P_0)
+        &= \E_{P_0}\E_{P_0} \{\E_{P_0}(Y \mid W,A=1,Z) \\
+        &\qquad\qquad\qquad - \E_{P_0}(Y \mid W,A=0,Z) \mid A=0,W\} \ .
       \end{align*}
     }
   }
