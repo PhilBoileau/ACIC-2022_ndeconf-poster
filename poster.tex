@@ -6,6 +6,11 @@
 \usepackage{amsthm}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{natbib}
+
+% compact bibliography
+\renewcommand{\bibsection}{}
+\setlength{\bibsep}{0pt plus 0.3ex}
 
 % tiks fun
 \usetikzlibrary{shapes,decorations,arrows,calc,arrows.meta,fit,positioning}
@@ -50,7 +55,7 @@
 
 % dictate default block options
 \newcommand{\myblock}[2]{\block[titleinnersep=5mm, linewidth=1mm]{#1}{#2}}
-\newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm]{{\small #1}}{{\small#2\par}}}
+\newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm]{{\small #1}}{{\tiny#2\par}}}
 
 \begin{document}
 
@@ -125,7 +130,22 @@
   }
 
   \myblock{Inference}{
-    Statistical inference is possible using standard methods.
+
+    \textbf{Existing estimation and testing approaches are compatible with with
+    this relaxed identification strategy.}
+
+    \vspace{0.5em}
+
+    Examples include the targeted maximum likelihood estimator of
+    \citet{zheng2012} and the one-step estimator based on the efficient
+    influence function of $\Psi(P)$ \citep{tchetgen2011}. These nonparametric
+    estimators are multiple-robust and asymptotically linear under
+    non-restrictive assumptions. 
+
+    \vspace{0.5em}
+    
+    These estimators are implemented in the \texttt{medoutcon} \texttt{R}
+    package.
   }
     
   \mysmallblock{Funding}{
@@ -138,7 +158,7 @@
 
   \myblock{Simulation Study}{
 
-    We consider the following data-generating distribution:
+    We consider the following data-generating process:
     \begin{align*}\label{eq:nde-sim-dgp}
       W_1 & \sim \text{Unif}(-1, 1), \: W_2, V \sim N(0, 1) \\
       A|W, V & \sim \text{Bern}
@@ -163,8 +183,9 @@
 
 
   \mysmallblock{References}{
-    \vspace{-1em}
-    List of references.
+    \vspace{-3em}
+    \bibliographystyle{unsrtnat}
+    \bibliography{refs}
     \vspace{-1em}
   }
 

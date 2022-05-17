@@ -1,0 +1,23 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Zheng and van~der Laan(2012)]{zheng2012}
+Wenjing Zheng and Mark~J. van~der Laan.
+\newblock Targeted maximum likelihood estimation of natural direct effects.
+\newblock \emph{The International Journal of Biostatistics}, 8\penalty0
+  (1):\penalty0 1--40, 2012.
+\newblock \doi{doi:10.2202/1557-4679.1361}.
+\newblock URL \url{https://doi.org/10.2202/1557-4679.1361}.
+
+\bibitem[{Tchetgen Tchetgen} and Shpitser(2011)]{tchetgen2011}
+Eric~J {Tchetgen Tchetgen} and Ilya Shpitser.
+\newblock Semiparametric estimation of models for natural direct and indirect
+  effects.
+\newblock Working Paper 129, Harvard University, 2011.
+\newblock URL \url{https://biostats.bepress.com/harvardbiostat/paper129/}.
+
+\end{thebibliography}
