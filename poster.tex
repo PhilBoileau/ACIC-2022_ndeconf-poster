@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{tikz}
+\usepackage{graphicx}
 
 % tiks fun
 \usetikzlibrary{shapes,decorations,arrows,calc,arrows.meta,fit,positioning}
@@ -49,6 +50,7 @@
 
 % dictate default block options
 \newcommand{\myblock}[2]{\block[titleinnersep=5mm, linewidth=1mm]{#1}{#2}}
+\newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm]{{\small #1}}{{\small#2\par}}}
 
 \begin{document}
 
@@ -128,8 +130,27 @@
 
   \column{0.333}
 
-  \myblock{Simulation Results}{
-    Here are the results of our simulation study.
+  \myblock{Simulation Study}{
+
+    We consider the following data-generating distribution:
+    \begin{align*}\label{eq:nde-sim-dgp}
+      W_1 & \sim \text{Unif}(-1, 1) \\
+      W_2 & \sim N(0, 1) \\
+      V & \sim N(0, 1) \\
+      A|W, V & \sim \text{Bern}
+      \left(\left(1 + \exp\{-W_1-W_2-V\}\right)^{-1}\right) \\
+      Z|A, W, V & \sim \text{Bern}
+      \left(\left(1 + \exp\{-W_1-W_2- \gamma V - 3A\}\right)^{-1}\right) \\
+      Y| Z, A, W, V & \sim N(3A + W_1 + W_2 + Z, 1) \ .
+    \end{align*}
+    \centering
+
+    \vspace{-2em}
+
+    \begin{tikzfigure}
+      \includegraphics[width=0.295\textwidth]{figs/impact-unmeasured-conf-eff-size-sim.jpeg}
+    \end{tikzfigure}
+    \vspace{-1.5em}
   }
 
   \myblock{Conclusions}{
@@ -139,10 +160,18 @@
   \begin{subcolumns}
 
     \subcolumn{0.5}
-    \myblock{References}{List of references.}
+    \mysmallblock{References}{
+      \vspace{-1em}
+      List of references.
+      \vspace{-1em}
+    }
 
     \subcolumn{0.5}
-    \myblock{Funding}{Thank you for paying my bills.}
+    \mysmallblock{Funding}{
+      \vspace{-1em}
+      Thank you for paying my bills.
+      \vspace{-1em}
+    }
 
     \block[linewidth=0mm, bodyinnersep=5mm, roundedcorners=12]{}{
       {\small \textit{$^\ast$ indicates shared first-authorship}}
