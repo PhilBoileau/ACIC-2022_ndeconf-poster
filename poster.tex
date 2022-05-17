@@ -79,18 +79,6 @@
 
   \myblock{Identification}{
 
-    \begin{enumerate}
-      \item Treatment--outcome randomization
-      \item Treatment--mediator randomization
-      \item Mediator--outcome randomization
-      \item No unmeasured endogenous pathways:\newline
-        $f_Y(Z, A, W, V, U_Y) \equiv f_Y(Z, A, W, U_Y).$
-      \item Conditional expectation equivalence:\newline
-        $\E(Y \mid Z,A=1,W,V) \equiv \E(Y \mid Z,A=1,W)$
-    \end{enumerate}
-
-    \vspace{0.5em}
-
     \centering
     \begin{tikzpicture}
       \node[state] (1) at (0,7.0) {$W$};
@@ -113,10 +101,19 @@
       \node[draw=red,loosely dotted,fit=(3) (5), inner sep=0.2cm,line width=0.05cm] (machine) {};
     \end{tikzpicture}
 
-    \vspace{0.5em}
+    \vspace{1em}
+
+    \begin{enumerate}
+      \item No unmeasured endogenous pathways:\newline
+        $f_Y(Z, A, W, V, U_Y) \equiv f_Y(Z, A, W, U_Y).$
+      \item Conditional expectation equivalence:\newline
+        $\E(Y \mid Z,A=1,W,V) \equiv \E(Y \mid Z,A=1,W)$
+    \end{enumerate}
+
+    \vspace{1em}
 
     \innerblock[]{Theorem}{
-      Under these assumptions, the corresponding statistical estimand is
+      Under assumptions A1 and A2, $\Psi^F(P_{U,X,0})$ is identified by
       \begin{align*}
         \Psi(P_0)
         &= \E_{P_0}\E_{P_0} \{\E_{P_0}(Y \mid W,A=1,Z) \\
