@@ -54,7 +54,7 @@
 %\titlegraphic{}
 
 % dictate default block options
-\newcommand{\myblock}[2]{\block[titleinnersep=5mm, linewidth=1mm]{#1}{#2}}
+\newcommand{\myblock}[2]{\block[titleinnersep=2mm, linewidth=0.5mm]{#1}{#2}}
 \newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm, bodyinnersep=5mm, roundedcorners=12, ]{{\small #1}}{{\tiny#2\par}}}
 
 \begin{document}
@@ -92,9 +92,19 @@
 
   \myblock{The Statistical Problem}{
     %State the causal and statistical models, and estimand.
+    Consider cohort data collected through time as $O = (W, A, Z, Y).$
+    $O$ does not include $V$, though the complete data $X$ does. \\
+
+    Let $O \sim P_0 \in \M$, with $\M$ being the nonparametric \textit{statistical model}. Likelihood of the observed data under $\M$ is:
+    \begin{equation*}
+    p(o) = \prod_{i=1}^{n} q_Y(y_i \mid w_i, a_i, z_i) q_Z(z_i \mid w_i, a_i)
+      g_A(a_i \mid w_i) q_W(w_i).
+\end{equation*}
+
     The average treatment effect may be decomposed as
     \begin{align*}
-      \Psi_{\text{ATE}}^F(P_{U,X,0}) =& \E_{U,X,0}[Y(1) - Y(0)] \\
+      \Psi_{\text{ATE}}^F(P_{U,X,0})
+      %=& \E_{U,X,0}[Y(1) - Y(0)] \\
        =& \underbrace{\E_{U,X,0}[Y(1, Z(1)) - Y(1, Z(0))]}_{\text{NIE}} \\
        &+ \underbrace{\E_{U,X,0}[Y(1, Z(0)) - Y(0, Z(0))]}_{\text{NDE}},
     \end{align*}
@@ -106,7 +116,7 @@
         & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~d\mu(z)~d\nu(w) \ .
     \end{align*}
   }
-  
+
   \column{0.334}
 
   \myblock{Causal Identification}{
@@ -161,7 +171,7 @@
       \item one-step bias-corrected estimator based on the efficient influence
         function of \citet{tchetgen2011}.
     \end{itemize}
-    Both estimators are multiple-robust, asymptotically linear under fairly
+    Both estimators are \textit{multiple-robust}, \textit{asymptotically linear} under fairly
     non-restrictive assumptions, and compatible with cross-fitting.\\
     Both estimators are implemented in the \texttt{medoutcon} \texttt{R}
     package.
@@ -171,7 +181,7 @@
     PB's gratefully acknowledges the support of the FRQNT and NSERC. NSH's work
     was supported by NSF DMS 2102840.
   }
-  
+
   \column{0.333}
 
   \myblock{Numerical Experiments}{
@@ -219,7 +229,7 @@
     \bibliography{refs}
     \vspace{-1em}
   }
-  
+
   \begin{subcolumns}
     \subcolumn{0.7}
     \block[linewidth=0mm, bodyinnersep=5mm, roundedcorners=12]{}{
