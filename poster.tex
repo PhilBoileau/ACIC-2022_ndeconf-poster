@@ -61,30 +61,54 @@
 
 \maketitle[width = 26in]
 \node[anchor=west] at (TP@title.west) {\includegraphics[width=5cm]{logos/cal}};
-\node[anchor=east] at (TP@title.east) {\includegraphics[width=5cm]{logos/cal}};
+\node[anchor=east] at (TP@title.east) {\includegraphics[scale=0.7]{logos/wcm}};
 
 
 \begin{columns}
 
   \column{0.333}
 
-  \myblock{Introduction}{
-    This is the background.
+  \myblock{Introduction \& Motivations}{
+    \begin{itemize}
+      \itemsep2pt
+        \item Developing \textit{mechanistic} understandings of causal effects
+          is a ubiquitous goal across scientific disciplines.
+        \item The natural direct and indirect effects are common target causal
+          parameters since they are nonparametrically identified.
+        \item Identification assumes absence of unmeasured confounders of
+          exposure--mediator, mediator--outcome, and exposure--outcome
+          pathways --- but this is \textit{not} completely necessary.
+        \item The natural direct and indirect effects arise from a decomposition
+          of the average treatment effect (ATE), and the
+          \begin{itemize}
+            \item natural indirect effect (NIE) captures the portion of the ATE
+              passing through the mediators ($Z$), while the
+            \item natural direct effect (NDE) captures the remainder of the ATE,
+              through all paths excluding $Z$.
+          \end{itemize}
+    \end{itemize}
   }
 
-  \myblock{Statistical Problem}{
-    State the causal and statistical models, and estimand.
-      
-    The causal target parameter is
+  \myblock{The Statistical Problem}{
+    %State the causal and statistical models, and estimand.
+    The average treatment effect may be decomposed as
     \begin{align*}
-      \Psi^F(P_{U,X,0}) &= \int_{w,z} \E[Y(1,z) - Y(0,z) \mid W=w] \\
-                        & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~dz~dw\;.
+      \Psi_{\text{ATE}}^F(P_{U,X,0}) =& \E_{U,X,0}[Y(1) - Y(0)] \\
+       =& \underbrace{\E_{U,X,0}[Y(1, Z(1)) - Y(1, Z(0))]}_{\text{NIE}} \\
+       &+ \underbrace{\E_{U,X,0}[Y(1, Z(0)) - Y(0, Z(0))]}_{\text{NDE}},
+    \end{align*}
+    where $Y(1, Z(0))$ arises from a \textit{joint} intervention on treatment
+    and mediators ($Z$), setting them to incompatible values. The NDE is
+    \begin{align*}
+      \Psi^F_{\text{NDE}}(P_{U,X,0}) &= \int_{\mathcal{W}, \mathcal{Z}}
+        \E[Y(1,z) - Y(0,z) \mid W=w] \\
+        & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~d\mu(z)~d\nu(w) \ .
     \end{align*}
   }
 
   \column{0.334}
 
-  \myblock{Identification}{
+  \myblock{Causal Identification}{
 
     \centering
     \begin{tikzpicture}
@@ -120,7 +144,8 @@
     \vspace{1em}
 
     \innerblock[]{Theorem}{
-      Under assumptions A1 and A2, $\Psi^F(P_{U,X,0})$ is identified by
+      Under assumptions A1 and A2, $\Psi^F_{\text{NDE}}(P_{U,X,0})$ is
+      identified by
       \begin{align*}
         \Psi(P_0)
         &= \E_{P_0}\E_{P_0} \{\E_{P_0}(Y \mid W,A=1,Z) \\
@@ -129,43 +154,41 @@
     }
   }
 
-  \myblock{Inference}{
+  \myblock{Estimation \& Inference}{
 
     \textbf{Existing estimation and testing approaches are compatible with with
-    this relaxed identification strategy.}
-
-    \vspace{0.5em}
-
-    Examples include the targeted maximum likelihood estimator of
-    \citet{zheng2012} and the one-step estimator based on the efficient
-    influence function of $\Psi(P)$ \citep{tchetgen2011}. These nonparametric
-    estimators are multiple-robust and asymptotically linear under
-    non-restrictive assumptions. 
-
-    \vspace{0.5em}
-    
-    These estimators are implemented in the \texttt{medoutcon} \texttt{R}
+    this relaxed identification strategy.} Examples include the
+    \begin{itemize}
+      \itemsep0pt
+      \item targeted maximum likelihood estimator of~\citet{zheng2012}, and the
+      \item one-step bias-corrected estimator based on the efficient influence
+        function~\citep{tchetgen2011}.
+    \end{itemize}
+    Both estimators are multiple-robust, asymptotically linear under fairly
+    non-restrictive assumptions, and compatible with cross-fitting.\\
+    Both estimators are implemented in the \texttt{medoutcon} \texttt{R}
     package.
   }
-    
+
   \mysmallblock{Funding}{
     \vspace{-1em}
-    Thank you for paying my bills.
+    Thank you for paying our bills. NSH's work was supported by NSF
+    DMS 2102840.
     \vspace{-1em}
   }
 
   \column{0.333}
 
-  \myblock{Simulation Study}{
+  \myblock{Numerical Experiments}{
 
     We consider the following data-generating process:
     \begin{align*}\label{eq:nde-sim-dgp}
-      W_1 & \sim \text{Unif}(-1, 1), \: W_2, V \sim N(0, 1) \\
+      W_1 & \sim \text{Unif}(-1, 1), \: W_2, V \sim \text{Norm}(0, 1) \\
       A|W, V & \sim \text{Bern}
       \left(\left(1 + \exp\{-W_1-W_2-V\}\right)^{-1}\right) \\
       Z|A, W, V & \sim \text{Bern}
       \left(\left(1 + \exp\{-W_1-W_2- \gamma V - 3A\}\right)^{-1}\right) \\
-      Y| Z, A, W, V & \sim N(3A + W_1 + W_2 + Z, 1) \ .
+      Y| Z, A, W, V & \sim \text{Norm}(3A + W_1 + W_2 + Z, 1) \ .
     \end{align*}
     \centering
 
@@ -178,7 +201,12 @@
   }
 
   \myblock{Conclusions}{
-    Here are the important takeaways.
+    \begin{itemize}
+      \itemsep1pt
+        \item Here are the important takeaways.
+        \item There are many important takeaways.
+        \item Didn't this change your life?
+    \end{itemize}
   }
 
 
