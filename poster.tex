@@ -55,7 +55,7 @@
 
 % dictate default block options
 \newcommand{\myblock}[2]{\block[titleinnersep=5mm, linewidth=1mm]{#1}{#2}}
-\newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm]{{\small #1}}{{\tiny#2\par}}}
+\newcommand{\mysmallblock}[2]{\block[titleinnersep=1mm, linewidth=1mm, bodyinnersep=5mm, roundedcorners=12, ]{{\small #1}}{{\tiny#2\par}}}
 
 \begin{document}
 
@@ -81,6 +81,7 @@
         \item The natural direct and indirect effects arise from a decomposition
           of the average treatment effect (ATE), and the
           \begin{itemize}
+            \itemsep1pt
             \item natural indirect effect (NIE) captures the portion of the ATE
               passing through the mediators ($Z$), while the
             \item natural direct effect (NDE) captures the remainder of the ATE,
@@ -105,7 +106,7 @@
         & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~d\mu(z)~d\nu(w) \ .
     \end{align*}
   }
-
+  
   \column{0.334}
 
   \myblock{Causal Identification}{
@@ -132,16 +133,12 @@
       \node[draw=red,loosely dotted,fit=(3) (5), inner sep=0.2cm,line width=0.05cm] (machine) {};
     \end{tikzpicture}
 
-    \vspace{1em}
-
     \begin{enumerate}
       \item No unmeasured endogenous pathways:\newline
         $f_Y(Z, A, W, V, U_Y) \equiv f_Y(Z, A, W, U_Y).$
       \item Conditional expectation equivalence:\newline
         $\E(Y \mid Z,A=1,W,V) \equiv \E(Y \mid Z,A=1,W)$
     \end{enumerate}
-
-    \vspace{1em}
 
     \innerblock[]{Theorem}{
       Under assumptions A1 and A2, $\Psi^F_{\text{NDE}}(P_{U,X,0})$ is
@@ -154,15 +151,15 @@
     }
   }
 
-  \myblock{Estimation \& Inference}{
+  \myblock{Inference}{
 
-    \textbf{Existing estimation and testing approaches are compatible with with
-    this relaxed identification strategy.} Examples include the
+    \textbf{Existing estimation and testing approaches are compatible with
+    this relaxed identification strategy.} For example,
     \begin{itemize}
       \itemsep0pt
-      \item targeted maximum likelihood estimator of~\citet{zheng2012}, and the
+      \item targeted maximum likelihood estimator of~\citet{zheng2012}
       \item one-step bias-corrected estimator based on the efficient influence
-        function~\citep{tchetgen2011}.
+        function of \citet{tchetgen2011}.
     \end{itemize}
     Both estimators are multiple-robust, asymptotically linear under fairly
     non-restrictive assumptions, and compatible with cross-fitting.\\
@@ -171,12 +168,10 @@
   }
 
   \mysmallblock{Funding}{
-    \vspace{-1em}
-    Thank you for paying our bills. NSH's work was supported by NSF
-    DMS 2102840.
-    \vspace{-1em}
+    PB's gratefully acknowledges the support of the FRQNT and NSERC. NSH's work
+    was supported by NSF DMS 2102840.
   }
-
+  
   \column{0.333}
 
   \myblock{Numerical Experiments}{
@@ -197,10 +192,11 @@
     \begin{tikzfigure}
       \includegraphics[width=0.295\textwidth]{figs/impact-unmeasured-conf-eff-size-sim.jpeg}
     \end{tikzfigure}
-    \vspace{-1.5em}
+    \vspace{-2em}
   }
 
   \myblock{Conclusions}{
+    \vspace{-1em}
     \begin{itemize}
       \itemsep1pt
         \item The NDE is identifiable under unmeasured exposure--mediator
@@ -214,6 +210,7 @@
               infection history, immunocompromised status, genetics.
           \end{itemize}
     \end{itemize}
+    \vspace{-1.5em}
   }
 
   \mysmallblock{References}{
@@ -222,11 +219,17 @@
     \bibliography{refs}
     \vspace{-1em}
   }
+  
+  \begin{subcolumns}
+    \subcolumn{0.7}
+    \block[linewidth=0mm, bodyinnersep=5mm, roundedcorners=12]{}{
+      \vspace{-0.5em}
+      {\small \textit{$^\ast$ indicates shared first-authorship, ordered
+      alphabetically.}}
+      \vspace{-1em}
+    }
+  \end{subcolumns}
 
-
-  \block[linewidth=0mm, bodyinnersep=5mm, roundedcorners=12]{}{
-    {\small \textit{$^\ast$ indicates shared first-authorship}}
-  }
 
 \end{columns}
 
