@@ -93,13 +93,16 @@
   \myblock{The Statistical Problem}{
     %State the causal and statistical models, and estimand.
     Consider cohort data collected through time as $O = (W, A, Z, Y).$
-    $O$ does not include $V$, though the complete data $X$ does. \\
+    $O$ does not include $V$, the exposure--mediator confounder, though the
+    complete data $X$ does. \\
 
-    Let $O \sim P_0 \in \M$, with $\M$ being the nonparametric \textit{statistical model}. Likelihood of the observed data under $\M$ is:
+    Let $O \sim P_0 \in \M$, with $\M$ being the nonparametric
+    \textit{statistical model}. The likelihood of the observed data under $\M$
+    is:
     \begin{equation*}
-    p(o) = \prod_{i=1}^{n} q_Y(y_i \mid w_i, a_i, z_i) q_Z(z_i \mid w_i, a_i)
-      g_A(a_i \mid w_i) q_W(w_i).
-\end{equation*}
+      p(o) = \prod_{i=1}^{n} q_Y(y_i \mid w_i, a_i, z_i) q_Z(z_i \mid w_i, a_i)
+        g_A(a_i \mid w_i) q_W(w_i).
+    \end{equation*}
 
     The average treatment effect may be decomposed as
     \begin{align*}
@@ -115,6 +118,8 @@
         \E[Y(1,z) - Y(0,z) \mid W=w] \\
         & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~d\mu(z)~d\nu(w) \ .
     \end{align*}
+
+    \vspace{-1em}
   }
 
   \column{0.334}
