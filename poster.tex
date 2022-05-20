@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{natbib}
+\usepackage{url}
 
 % compact bibliography
 \renewcommand{\bibsection}{}
@@ -74,47 +75,50 @@
         \item Developing \textit{mechanistic} understandings of causal effects
           is a ubiquitous goal across scientific disciplines.
         \item The natural direct and indirect effects are common target causal
-          parameters since they are nonparametrically identified.
+          parameters --- both identifiable without structural assumptions.
         \item Identification assumes absence of unmeasured confounders of
           exposure--mediator, mediator--outcome, and exposure--outcome
           pathways --- but this is \textit{not} completely necessary.
-        \item The natural direct and indirect effects arise from a decomposition
-          of the average treatment effect (ATE), and the
+        \item The natural direct and indirect effects arise from a
+          decomposition of the average treatment effect (ATE), defined by a
+          \vspace{-10pt}
           \begin{itemize}
             \itemsep1pt
+            \item \textit{joint} intervention on exposure ($A$) and mediators
+              ($Z$), where
             \item natural indirect effect (NIE) captures the portion of the ATE
-              passing through the mediators ($Z$), while the
-            \item natural direct effect (NDE) captures the remainder of the ATE,
-              through all paths excluding $Z$.
+              that passes only through the mediators, while the
+            \item natural direct effect (NDE) captures the remainder of the
+              ATE, that is, through all paths excluding $Z$.
           \end{itemize}
     \end{itemize}
   }
 
   \myblock{The Statistical Problem}{
-    %State the causal and statistical models, and estimand.
-    Consider cohort data collected through time as $O = (W, A, Z, Y).$
-    $O$ does not include $V$, the exposure--mediator confounder, though the
-    complete data $X$ does. \\
+    Full (unobserved) data is $X = (W, V, A, Z, Y)$, and we observe $O = (W, A,
+    Z, Y)$. Exposure--mediator confounder $V$ \textbf{not} part of $O$. \\
 
+    \vspace{-10pt}
     Let $O \sim P_0 \in \M$, with $\M$ being the nonparametric
     \textit{statistical model}. The likelihood of the observed data under $\M$
     is:
     \begin{equation*}
       p(o) = \prod_{i=1}^{n} q_Y(y_i \mid w_i, a_i, z_i) q_Z(z_i \mid w_i, a_i)
-        g_A(a_i \mid w_i) q_W(w_i).
+        g_A(a_i \mid w_i) q_W(w_i) \ .
     \end{equation*}
 
+    \vspace{-10pt}
     The average treatment effect may be decomposed as
     \begin{align*}
-      \Psi_{\text{ATE}}^F(P_{U,X,0})
-      %=& \E_{U,X,0}[Y(1) - Y(0)] \\
-       =& \underbrace{\E_{U,X,0}[Y(1, Z(1)) - Y(1, Z(0))]}_{\text{NIE}} \\
-       &+ \underbrace{\E_{U,X,0}[Y(1, Z(0)) - Y(0, Z(0))]}_{\text{NDE}},
+      \Psi_{\text{ATE}}(P_{X,0})
+       =& \E_{X,0}[Y(1) - Y(0)] \\
+       =& \underbrace{\E_{X,0}[Y(1, Z(1)) - Y(1, Z(0))]}_{\text{NIE}} \\
+       &+ \underbrace{\E_{X,0}[Y(1, Z(0)) - Y(0, Z(0))]}_{\text{NDE}} \ ,
     \end{align*}
-    where $Y(1, Z(0))$ arises from a \textit{joint} intervention on treatment
-    and mediators ($Z$), setting them to incompatible values. The NDE is
+    where $Y(1, Z(0))$ arises from a joint intervention on the exposure and
+    mediators, setting them to \textit{incompatible} values. The NDE is
     \begin{align*}
-      \Psi^F_{\text{NDE}}(P_{U,X,0}) &= \int_{\mathcal{W}, \mathcal{Z}}
+      \Psi_{\text{NDE}}(P_{X,0}) &= \int_{\mathcal{W}, \mathcal{Z}}
         \E[Y(1,z) - Y(0,z) \mid W=w] \\
         & \qquad\qquad\qquad p_Z(z \mid A=0,w)p_W(w)~d\mu(z)~d\nu(w) \ .
     \end{align*}
@@ -150,13 +154,13 @@
 
     \begin{enumerate}
       \item No unmeasured endogenous pathways:\newline
-        $f_Y(Z, A, W, V, U_Y) \equiv f_Y(Z, A, W, U_Y).$
+        $f_Y(Z, A, W, V, U_Y) \equiv f_Y(Z, A, W, U_Y)$
       \item Conditional expectation equivalence:\newline
         $\E(Y \mid Z,A=1,W,V) \equiv \E(Y \mid Z,A=1,W)$
     \end{enumerate}
 
     \innerblock[]{Theorem}{
-      Under assumptions A1 and A2, $\Psi^F_{\text{NDE}}(P_{U,X,0})$ is
+      Under assumptions A1 and A2, $\Psi_{\text{NDE}}(P_{X,0})$ is
       identified by
       \begin{align*}
         \Psi(P_0)
@@ -166,20 +170,24 @@
     }
   }
 
-  \myblock{Inference}{
+  \myblock{Estimation \& Inference}{
 
     \textbf{Existing estimation and testing approaches are compatible with
-    this relaxed identification strategy.} For example,
+    this relaxed identification strategy.} For example, one could use the
     \begin{itemize}
       \itemsep0pt
-      \item targeted maximum likelihood estimator of~\citet{zheng2012}
-      \item one-step bias-corrected estimator based on the efficient influence
-        function of \citet{tchetgen2011}.
+      \item targeted maximum likelihood estimator of~\citet{zheng2012}, or the
+      \item one-step estimator of~\citet{tchetgen2011}.
     \end{itemize}
-    Both estimators are \textit{multiple-robust}, \textit{asymptotically linear} under fairly
-    non-restrictive assumptions, and compatible with cross-fitting.\\
+    Both estimators are \textit{multiple-robust} (by being based on the
+    efficient influence function), \textit{asymptotically linear} under fairly
+    non-restrictive assumptions, compatible with \textit{cross-fitting} of
+    nuisance estimators.
+    \\
+
+    \vspace{-10pt}
     Both estimators are implemented in the \texttt{medoutcon} \texttt{R}
-    package.
+    package (check it out at \url{https://github.com/nhejazi/medoutcon}).
   }
 
   \mysmallblock{Funding}{
